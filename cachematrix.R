@@ -14,12 +14,12 @@ makeCacheMatrix <- function(x = matrix()) {
 
 cacheSolve <- function(x, ...) {
   i <- x$getInverse()
-  if (!is.null(i)) {
-    message("getting cached data")
-    return(i)
+  if (is.null(i)) {
+    data <- x$get()
+    i <- solve(data)
+    x$setInverse(i)
+  } else {
+    message("getting cached data") 
   }
-  data <- x$get()
-  i <- solve(data)
-  x$setInverse(i)
   i
 }
